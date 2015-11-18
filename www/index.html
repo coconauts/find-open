@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+        <meta name=format-detection content=telephone=no></meta>
+        <meta name=msapplication-tap-highlight content=no></meta>
+        <meta name=viewport content=user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width></meta>
+
+        <!--http://astronautweb.co/snippet/font-awesome/-->
+        <!--http://fortawesome.github.io/Font-Awesome/examples/-->
+        <link rel="stylesheet" href="css/materialize.min.css"></link>
+        <link rel=stylesheet type=text/css href=css/font-awesome.min.css></link>
+        <!--<link rel=stylesheet href=path/to/font-awesome/css/font-awesome.min.css>-->
+        <link rel=stylesheet type=text/css href=css/index.css></link>
+        <link rel=stylesheet type=text/css href=css/foursquare-list.css></link>
+
+        <script type='text/javascript' src=js/ux/jquery.min.js></script>
+        <script type='text/javascript' src=js/ux/mustache.min.js></script>
+        <script src="js/ux/materialize.min.js"></script>
+
+        <script type='text/javascript' src=js/cordova/location.js></script>
+
+        <script type='text/javascript' src=js/services/foursquare.js></script>
+        <script type='text/javascript' src=js/services/amplitude.min.js></script>
+        <script type="text/javascript">
+            (function(e,t){var r=e.amplitude||{};var n=t.createElement("script");n.type="text/javascript";
+            n.async=true;n.src="https://d24n15hnbwhuhn.cloudfront.net/libs/amplitude-2.2.1-min.gz.js";
+            var s=t.getElementsByTagName("script")[0];s.parentNode.insertBefore(n,s);r._q=[];function a(e){
+            r[e]=function(){r._q.push([e].concat(Array.prototype.slice.call(arguments,0)))}}var i=["init","logEvent","logRevenue","setUserId","setUserProperties","setOptOut","setVersionName","setDomain","setDeviceId","setGlobalUserProperties"];
+            for(var o=0;o<i.length;o++){a(i[o])}e.amplitude=r})(window,document);
+
+            amplitude.init("cf94e11b24c48c4156230d0ad248e3c8");
+
+            amplitude.logEvent("open");
+        </script>
+
+        <script type='text/javascript' src=js/view.js></script>
+        <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+
+        <title>Is it open</title>
+    </head>
+    <body>
+        <div id='content'>
+            <div id='search-panel'>
+
+                <div class="row">
+                  <div class="col s4">
+                    <a id='search-food' href='#' class='btn-floating btn-large waves-effect waves-light red'>
+                        <i class="fa fa-cutlery"></i>
+                    </a>
+                  </div>
+                  <div class="col s4">
+                    <a id='search-coffee' href='#' class='btn-floating btn-large waves-effect waves-light red'>
+                        <i class="fa fa-coffee"></i>
+                    </a>
+                  </div>
+                  <div class="col s4">
+                    <a id='search-drinks' href='#' class='btn-floating btn-large waves-effect waves-light red'>
+                        <i class="fa fa-glass"></i>
+                    </a>
+                  </div>
+                </div>
+            </div>
+            <div  id='loading' class="progress">
+                <div class="indeterminate"></div>
+            </div>
+
+            <div>
+                <script id=template type=x-tmpl-mustache>
+                  <li class='collection-item venue hoverable' id='{{ venue.id }}' style='opacity: 100;'>
+                      <div class='row ' >
+                          <div class='col s2 image-container' >
+                            <img class='venue-image' src=' {{ featuredPhoto }}'/>
+                          </diV>
+                          <div class='col s6'>
+                            <a target='_blank' class='venue-url venue-name truncate' href='https://foursquare.com/venue/{{ venue.id }}'>
+                              {{ venue.name }}
+                            </a>
+                            <a class='fa fa-map-marker truncate' target='_blank' href='{{ googlemaps }}'> {{ venue.location.address }}</a>
+                            <p class='fa fa-star venue-rating truncate'> {{ venue.rating }} </p>
+                            <a href='tel:{{ venue.contact.formattedPhone }}' class='venue-phone fa fa-phone truncate'> {{ venue.contact.phone }} </a>
+
+                          </div>
+                          <div class='col s4 right-align'>
+                            <p class='venue-category-name truncate'> {{ category }} </p>
+                            <p class='fa fa-location-arrow venue-distance'> {{ distance }}</p>
+                            <p class='fa fa-clock-o venue-hours'> {{ venue.hours.status }} </p>
+                          </div>
+
+                      </div>
+                  </li>
+
+                </script>
+                <ol class='collection collapsible' data-collapsible="accordion" id='venues-list'></ol>
+                <div id='search-again-panel' class='center-align'>
+                  <p>Don&#39;t fancy anything from this list?
+                    Try searching for closed places.</p>
+                  <button id='search-again-closed' class='btn-large waves-effect waves-light red'>Search</button>
+                </div>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <div class="footer-copyright">
+
+                <div class='row ' >
+                    <div class='col s6' >
+                      Developed by
+                      <a href='http://coconautes.net' class='grey-text text-lighten-4' target='_blank'>Coconauts</a>
+                    </diV>
+                    <div class='col s6 right-align ' >
+                      <img class='powered-foursquare' src='imgs/powered-foursquare-black.png'/>
+                    </diV>
+               </div>
+            </div>
+        </footer>
+        <script type=text/javascript src=cordova.js></script>
+        <script type=text/javascript src=js/cordova/index.js></script>
+        <script type='text/javascript' src=js/controls.js></script>
+        <script type='text/javascript' src='js/utils.js'></script>
+    </body>
+</html>
